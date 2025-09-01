@@ -1,0 +1,199 @@
+/**
+ * Phase 1 Validation Script - Basic Descriptive Questions
+ * Syracuse Women's Lacrosse 2024 LLM Testing
+ * 
+ * This script validates LLM responses against calculated ground truth
+ * for basic statistical questions about the team dataset.
+ */
+
+* Parse CSV data into array of objects
+ */
+function parseCSVData(csvString) {
+    const lines = csvString.trim().split('\n');
+    const headers = lines[0].split(',');
+    
+    return lines.slice(1).map(line => {
+        const values = line.split(',');
+        const player = {};
+        
+        headers.forEach((header, index) => {
+            const value = values[index];
+            // Convert numeric fields
+            if (['Games_Played', 'Goals', 'Assists', 'Points', 'Shots', 'Shot_Pct', 
+                  'Free_Position_Goals', 'Ground_Balls', 'Caused_Turnovers', 'Draw_Controls'].includes(header)) {
+                player[header] = parseFloat(value) || 0;
+            } else {
+                player[header] = value;
+            }
+        });
+        
+        return player;
+    });
+}
+
+/**
+ * Phase 1 Validation Functions
+ */
+class Phase1Validator {
+    constructor(data) {
+        this.players = parseCSVData(data);
+    }
+    
+    // 1A: Simple Counting Questions
+    getTotalPlayers() {
+        return this.players.length;
+    }
+    
+    getTotalGoals() {
+        return this.players.reduce((sum, player) => sum + player.Goals, 0);
+    }
+    
+    getTotalAssists() {
+        return this.players.reduce((sum, player) => sum + player.Assists, 0);
+    }
+    
+    getMaxGamesPlayed() {
+        return Math.max(...this.players.map(p => p.Games_Played));
+    }
+    
+    // 1B: Basic Player Stats
+    getTopGoalScorer() {
+        return this.players.reduce((max, player) => 
+            player.Goals > max.Goals ? player : max
+        );
+    }
+    
+    getTopAssister() {
+        return this.players.reduce((max, player) => 
+            player.Assists > max.Assists ? player : max
+        );
+    }
+    
+    getTopPointScorer() {
+        return this.players.reduce((max, player) => 
+            player.Points > max.Points ? player : max
+        );
+    }
+    
+    getMostShotsPlayer() {
+        return this.players.reduce((max, player) => 
+            player.Shots > max.Shots ? player : max
+        );
+    }
+    
+    /**
+     * Validate LLM Response
+     */
+    validateResponse(questionType, llmAnswer, tolerance = 0.01) {
+        const validationResults = {};
+        
+        switch(questionType) {
+            case 'total_players':
+                validationResults.expected = this.getTotalPlayers();
+                validationResults.correct = llmAnswer === validationResults.expected;
+                break;
+                
+            case 'total_goals':
+                validationResults.expected = this.getTotalGoals();
+                validationResults.correct = llmAnswer === validationResults.expected;
+                break;
+                
+            case 'total_assists':
+                validationResults.expected = this.getTotalAssists();
+                validationResults.correct = llmAnswer === validationResults.expected;
+                break;
+                
+            case 'max_games':
+                validationResults.expected = this.getMaxGamesPlayed();
+                validationResults.correct = llmAnswer === validationResults.expected;
+                break;
+                
+            case 'top_goal_scorer':
+                validationResults.expected = this.getTopGoalScorer().Player_Name;
+                validationResults.correct = llmAnswer === validationResults.expected;
+                break;
+                
+            case 'top_assister':
+                validationResults.expected = this.getTopAssister().Player_Name;
+                validationResults.correct = llmAnswer === validationResults.expected;
+                break;
+                
+            case 'top_point_scorer':
+                validationResults.expected = this.getTopPointScorer().Player_Name;
+                validationResults.correct = llmAnswer === validationResults.expected;
+                break;
+                
+            case 'most_shots':
+                validationResults.expected = this.getMostShotsPlayer().Player_Name;
+                validationResults.correct = llmAnswer === validationResults.expected;
+                break;
+                
+            default:
+                validationResults.error = 'Unknown question type';
+        }
+        
+        return validationResults;
+    }
+    
+    /**
+     * Generate Expected Answers Report
+     */
+    generateAnswerKey() {
+        const topGoalScorer = this.getTopGoalScorer();
+        const topAssister = this.getTopAssister();
+        const topPointScorer = this.getTopPointScorer();
+        const mostShotsPlayer = this.getMostShotsPlayer();
+        
+        return {
+            'Phase 1A - Simple Counting': {
+                'Total players': this.getTotalPlayers(),
+                'Total goals': this.getTotalGoals(),
+                'Total assists': this.getTotalAssists(),
+                'Max games played': this.getMaxGamesPlayed()
+            },
+            'Phase 1B - Basic Player Stats': {
+                'Top goal scorer': `${topGoalScorer.Player_Name} (${topGoalScorer.Goals} goals)`,
+                'Top assister': `${topAssister.Player_Name} (${topAssister.Assists} assists)`,
+                'Top point scorer': `${topPointScorer.Player_Name} (${topPointScorer.Points} points)`,
+                'Most shots': `${mostShotsPlayer.Player_Name} (${mostShotsPlayer.Shots} shots)`
+            }
+        };
+    }
+}
+
+/**
+ * Usage Example
+ */
+function runValidation() {
+    const validator = new Phase1Validator(sampleData);
+    
+    console.log('=== PHASE 1 VALIDATION ANSWER KEY ===');
+    const answerKey = validator.generateAnswerKey();
+    console.log(JSON.stringify(answerKey, null, 2));
+    
+    console.log('\n=== TESTING VALIDATION FUNCTIONS ===');
+    
+    // Test individual validations
+    const tests = [
+        { type: 'total_players', answer: 17 },
+        { type: 'total_goals', answer: 268 },
+        { type: 'top_goal_scorer', answer: 'Meaghan Tyrrell' },
+        { type: 'top_assister', answer: 'Kate Mashewske' }
+    ];
+    
+    tests.forEach(test => {
+        const result = validator.validateResponse(test.type, test.answer);
+        console.log(`${test.type}: ${result.correct ? '✅ PASS' : '❌ FAIL'} 
+                     (Expected: ${result.expected}, Got: ${test.answer})`);
+    });
+}
+
+// Export for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { Phase1Validator, parseCSVData };
+}
+
+// Run validation if executed directly
+if (typeof window === 'undefined') {
+    runValidation();
+}
