@@ -1,0 +1,383 @@
+# Basic Prompts - Phase 1 Testing
+LLM Sports Analytics Research
+Prompt Categories and Examples
+Direct Question Format (Level 1)
+Simple, straightforward questions with no additional context
+Examples:
+"How many players are on the roster?"
+
+"Who scored the most goals?"
+
+"What was the team's total number of assists?"
+
+"Which player took the most shots?"
+Results: 100% accuracy (4/4 tested)
+Prompt Engineering Required: None
+Best Use: Basic counting and simple rankings
+
+Contextual Question Format (Level 2)
+Questions that include dataset context and clear instructions
+Template:
+"Based on the Syracuse Women's Lacrosse 2024 statistics provided, [specific question]. Please show your reasoning."
+Examples:
+"Based on the Syracuse Women's Lacrosse 2024 statistics, who led the team in total points (goals + assists) this season? Please show your calculation."
+
+"Using the provided dataset, which player scored the most goals and how many did they score?"
+
+"From the Syracuse lacrosse statistics, what was the maximum number of games played by any player this season?"
+Results: 100% accuracy (4/4 tested)
+Prompt Engineering Required: Minimal
+Best Use: When clarity and reasoning explanation needed
+
+Successful Prompt Characteristics
+What Works:
+
+Clear Subject: "Syracuse Women's Lacrosse statistics"
+Specific Metrics: "goals," "assists," "shooting percentage"
+Direct Questions: Avoid ambiguous phrasing
+Reasoning Requests: "Show your calculation" improves transparency
+
+What to Avoid:
+
+Ambiguous Terms: "Best player" without defining criteria
+Multiple Questions: Keep to one question per prompt
+Implicit Context: Always state data source clearly
+Complex Conditionals: Save filtering for intermediate prompts
+
+
+Phase 1 Testing Results by Prompt Type
+Direct Prompts Performance
+Question TypeAccuracyNotesTeam totals (goals, assists)100%Perfect aggregationPlayer rankings100%Correct identificationMaximum values100%Accurate comparisonsSimple counts100%No calculation errors
+Contextual Prompts Performance
+Question TypeAccuracyNotesPlayer statistics with reasoning100%Clear explanations providedTeam metrics with context100%Appropriate data interpretationComparative rankings100%Logical comparison methodsCalculated totals100%Showed work accurately
+
+Prompt Evolution Examples
+Example 1: Goal Scoring Leader
+Initial Prompt (Works Perfectly):
+"Who scored the most goals?"
+Enhanced Prompt (Also Effective):
+"Based on the Syracuse Women's Lacrosse statistics, who scored the most goals this season and how many goals did they score? Please show your reasoning."
+Result: Both versions achieved 100% accuracy. Enhanced version provides more detailed reasoning.
+Example 2: Team Statistics
+Initial Prompt (Works Perfectly):
+"How many total goals did the team score?"
+Enhanced Prompt (Also Effective):
+"Using the provided Syracuse Women's Lacrosse dataset, calculate the team's total goals scored this season. Please show your calculation method."
+Result: Both versions correct. Enhanced version shows sum calculation explicitly.
+
+Recommendations for Basic Prompts
+For Simple Questions:
+
+Use direct format: No additional context needed
+Be specific: "goals" not "scoring"
+One metric per question: Avoid complexity
+
+For Learning/Validation:
+
+Request reasoning: "Show your work"
+Add context: Reference dataset explicitly
+Ask for methods: "How did you calculate this?"
+
+Quality Assurance:
+
+Validate calculations: Check LLM arithmetic
+Verify understanding: Ensure correct metric interpretation
+Test consistency: Ask same question multiple ways
+
+
+Phase 1 Success Metrics
+Overall Prompt Effectiveness: 100% success rate
+Engineering Time Required: Minimal (< 5 minutes per prompt)
+Consistency: Perfect across all basic question types
+User-Friendliness: Simple prompts work as well as complex ones
+Key Insight: For basic sports statistics, straightforward prompts are highly effective. Additional context helps with explanation quality but doesn't improve accuracy.         
+Intermediate Prompts - Phase 2 Testing
+LLM Sports Analytics Research
+Calculated Metrics and Conditional Analysis
+Filtering Prompts (Level 3)
+Questions requiring conditional analysis with minimum thresholds
+Template:
+"Among players with [minimum criteria], who has the [metric] and what is their [calculated value]? Show your calculation."
+Examples:
+"Who had the highest goals-per-game average among players with 15+ games played? Show your calculation."
+
+"Which player had the best shooting percentage among those with at least 20 shots taken? Include the percentage and shot totals."
+
+"Among midfielders who played 15+ games, who collected the most ground balls?"
+Results: 100% accuracy (3/3 tested)
+Key Success Factor: Clear minimum criteria stated upfront
+
+Positional Analysis Prompts (Level 3)
+Questions requiring grouping and comparison across player positions
+Template:
+"Compare [metric] across [position groups]. Which [position] performed best in [category]? Show the totals."
+Examples:
+"Which position group (Attackers, Midfielders, Defenders, Goalkeepers) scored the most goals as a team? Show the totals for each position."
+
+"How did attackers' shooting percentage compare to midfielders' shooting percentage? Calculate the average for each position."
+
+"Which defender contributed the most offensively in terms of total points? Include goals and assists."
+Results: 100% accuracy (3/3 tested)
+Key Success Factor: Clear position grouping and specific metrics
+
+Derived Metrics Prompts (Level 3)
+Questions requiring calculation of ratios, percentages, or efficiency measures
+Template:
+"Calculate [derived metric] for the team/player. Use the formula [if complex]. Show your work."
+Examples:
+"What was the team's overall shooting percentage this season? Show the calculation using total goals and total shots."
+
+"Who had the best assist-to-goal ratio among players with at least 5 goals? Calculate the ratio for the top 3 players."
+
+"Calculate the average points per game for all midfielders. Show individual and group averages."
+Results: 100% accuracy (3/3 tested)
+Key Success Factor: Explicit calculation requests and clear formulas
+
+Advanced Prompt Engineering Strategies
+Strategy 1: Multi-Step Breakdown
+Breaking complex questions into sequential steps
+Example:
+"To find the most efficient goal scorer:
+1. First, identify players with at least 15 games played
+2. Calculate goals per game for each qualifying player  
+3. Rank them from highest to lowest
+4. Report the top 3 with their statistics"
+Effectiveness: 100% accuracy when steps are clearly defined
+Strategy 2: Explicit Filtering Criteria
+Clearly stating all conditions upfront
+Comparison:
+❌ Vague: "Who's the best shooter?"
+✅ Effective: "Among players with 20+ shots, who has the highest shooting percentage?"
+❌ Ambiguous: "Which midfielder is most productive?"
+✅ Effective: "Which midfielder has the most points per game among those with 10+ games played?"
+Strategy 3: Validation Requests
+Asking LLM to show work and verify calculations
+Template:
+"[Question]. Show your calculation step-by-step and verify your arithmetic."
+Example:
+"What percentage of the team's total goals were scored by attackers? Show your calculation step-by-step and verify your arithmetic."
+Benefit: Enables easy validation and builds confidence in results
+
+# Phase 2 Testing Results by Complexity
+Conditional Analysis (Filtering)
+Question TypeAccuracyComplexity NotesGoals/game with minimum games100%Perfect filtering logicShooting % with minimum shots100%Correct threshold applicationPosition-specific queries100%Accurate grouping
+Mathematical Calculations
+Question TypeAccuracyComplexity NotesTeam-wide percentages100%Correct aggregationPlayer efficiency ratios100%Accurate ratio calculationsDerived metrics100%Proper formula application
+Group Comparisons
+Question TypeAccuracyComplexity NotesPosition group totals100%Correct categorizationCross-position comparisons100%Logical comparison methodsStatistical rankings100%Accurate ordering
+
+Successful Intermediate Prompt Patterns
+Pattern 1: Criteria-First Structure
+"Among [filtering criteria], who/what [question]? [Show work request]."
+Example Success:
+"Among players with 15+ games, who has the highest goals-per-game? Show your calculation."
+Pattern 2: Calculate-Then-Compare Structure
+"Calculate [metric] for [group]. Compare and identify the [superlative]. Show calculations."
+Example Success:
+"Calculate total goals for each position group. Which position scored the most? Show totals."
+Pattern 3: Multi-Condition Structure
+"For players meeting [condition 1] and [condition 2], find [metric]. Report top [number] with details."
+Example Success:
+"For midfielders with 15+ games played, calculate points per game. Report the top 3 with their statistics."
+
+Common Pitfalls and Solutions
+Pitfall 1: Unclear Filtering Criteria
+❌ Problem: "Best offensive player"
+✅ Solution: "Player with most points per game (15+ games minimum)"
+Pitfall 2: Multiple Questions in One Prompt
+❌ Problem: "Who scored most goals and who had best shooting percentage?"
+✅ Solution: Split into separate, focused prompts
+Pitfall 3: Assumed Context
+❌ Problem: "How did offense compare to defense?"
+✅ Solution: "How did offensive stats (goals, assists) compare to defensive stats (caused turnovers, ground balls)?"
+
+Validation Techniques for Intermediate Prompts
+Automatic Validation
+javascript// Example validation for calculated metrics
+function validateGoalsPerGame(playerName, llmAnswer) {
+    const player = dataset.find(p => p.name === playerName);
+    const expected = player.goals / player.games;
+    return Math.abs(llmAnswer - expected) < 0.01;
+}
+Manual Verification Checklist
+
+Filtering Applied Correctly: Check minimum criteria enforcement
+Calculations Accurate: Verify arithmetic and formulas
+Data Interpretation: Ensure proper understanding of metrics
+Ranking Logic: Confirm ordering and comparison methods
+
+
+Recommendations for Intermediate Prompts
+Design Principles:
+
+Explicit Criteria: State all filtering conditions clearly
+Show Work: Always request calculation methodology
+Single Focus: One analytical question per prompt
+Validation Ready: Structure responses for easy verification
+
+Performance Optimization:
+
+Front-load Context: Put criteria at beginning of prompt
+Use Numbers: "15+ games" clearer than "sufficient playing time"
+Define Terms: Specify what metrics mean if ambiguous
+Request Structure: Ask for organized, step-by-step responses
+
+Phase 2 Success Rate: 100% accuracy demonstrates that well-structured intermediate prompts are highly effective for sports analytics applications.
+
+
+Advanced Prompts - Phase 3 Planning
+LLM Sports Analytics Research - Strategic Questions
+Phase 3: Complex Strategic Analysis
+Questions requiring subjective evaluation, multi-factor analysis, and coaching insights
+Subjective Evaluation Prompts (Level 4)
+Questions that require defining metrics for subjective concepts
+Challenge: Terms like "most improved," "best player," "game-changer" lack objective definitions
+Template:
+"To evaluate [subjective concept], consider these factors:
+1. [Factor 1 with weight]
+2. [Factor 2 with weight]  
+3. [Factor 3 with weight]
+
+Based on these criteria applied to the data, [question]? Show your analysis for the top 3 candidates."
+Planned Examples:
+"To determine the most improved player this season, consider these factors:
+1. Scoring rate improvement (goals per game increase from first half to second half)
+2. Shooting efficiency improvement (shooting percentage increase)  
+3. Overall contribution growth (points per game increase)
+4. Playing time earned (games played progression)
+
+Based on these criteria, who was the most improved player? Show calculations for top 3 candidates."
+
+"To identify the most well-rounded midfielder, evaluate:
+1. Offensive contribution (goals + assists per game)
+2. Defensive impact (ground balls + caused turnovers per game)
+3. Draw control efficiency (draw controls per game)
+4. Consistency (standard deviation of points across games)
+
+Which midfielder excels across all dimensions? Show analysis."
+Expected Challenges:
+
+Multiple valid answers possible
+Weight assignments for factors
+Data limitations (no game-by-game progression)
+
+
+Strategic Decision Prompts (Level 4)
+Questions requiring analysis for coaching decisions
+Template:
+"As a coach aiming to [specific goal], analyze:
+1. Current team strengths: [areas to evaluate]
+2. Current team weaknesses: [areas to evaluate]  
+3. Opponent tendencies: [if data available]
+4. Resource allocation: [time/effort considerations]
+
+Based on this analysis, should you focus on [option A] or [option B]? Provide reasoning and specific recommendations."
+Planned Examples:
+"As a coach wanting to win 2 more games next season, analyze:
+1. Current offensive efficiency (goals per shot, conversion rates)
+2. Current defensive effectiveness (turnovers forced, saves needed)
+3. Close game performance (games decided by 3 goals or fewer)
+4. Player development potential (young players with growth opportunity)
+
+Should you focus on improving offense or defense? Which specific area would have the highest impact?"
+
+"To improve team performance in close games, evaluate:
+1. Late-game scoring efficiency (performance in final 10 minutes)
+2. Defensive consistency (goals allowed in crucial situations)  
+3. Draw control success (possession advantage in tight games)
+4. Free position conversion (capitalizing on opportunities)
+
+What should be the top 2 practice priorities? Which players need the most focused development?"
+Expected Challenges:
+
+Requires domain expertise validation
+Multiple strategic approaches valid
+Limited contextual data about opponents/game situations
+
+
+Player Development Prompts (Level 4)
+Questions about individual player coaching focus
+Template:
+"To identify the player with highest development impact potential:
+1. Current performance gap: [areas below team average]
+2. Skill improvement opportunity: [areas with upside]
+3. Position importance: [role in team success]
+4. Playing time availability: [opportunity for growth]
+
+Which player should receive the most coaching attention and in which specific areas?"
+Planned Examples:
+"To determine which player could be the biggest game-changer with focused coaching:
+1. Statistical upside potential (comparing to position averages nationally)
+2. Current utilization efficiency (shots per minute, touches per point)
+3. Defensive impact opportunity (turnovers, ground balls improvement)
+4. Leadership/experience factor (class year and games played)
+
+Identify the top candidate and create a specific development plan with measurable goals."
+
+"For maximizing team scoring potential, evaluate each attacker's:
+1. Shot selection efficiency (shooting percentage vs. shot difficulty)
+2. Assist creation ability (hockey assists, screen setting value)
+3. Free position conversion rate (specialty situation performance)
+4. Off-ball movement effectiveness (creating space for others)
+
+Which attacker has the most room for improvement that would impact team success?"
+Expected Challenges:
+
+Requires assumptions about player potential
+Limited data on advanced metrics (shot quality, defensive assignments)
+Subjective coaching philosophy differences
+
+
+Advanced Prompt Engineering Techniques
+Multi-Step Analysis Structure
+Breaking complex strategic questions into sequential analysis
+Framework:
+Step 1: Data Analysis
+"First, calculate [relevant statistics] and identify [patterns/trends]"
+
+Step 2: Comparative Evaluation  
+"Next, compare these results against [benchmarks/thresholds]"
+
+Step 3: Strategic Assessment
+"Then, consider the strategic implications for [specific goal]"
+
+Step 4: Recommendation
+"Finally, provide specific actionable recommendations with reasoning"
+Weighted Factor Analysis
+Explicitly defining how to balance multiple criteria
+Example Structure:
+"Use this weighted scoring system:
+- Factor A (40% weight): [calculation method]
+- Factor B (30% weight): [calculation method]  
+- Factor C (20% weight): [calculation method]
+- Factor D (10% weight): [calculation method]
+
+Calculate composite scores and rank all candidates."
+Scenario-Based Analysis
+Testing strategic decisions against different situations
+Framework:
+"Analyze this decision under three scenarios:
+1. Scenario A: [conditions] - What would you recommend?
+2. Scenario B: [conditions] - How does this change your approach?
+3. Scenario C: [conditions] - What's the optimal strategy here?
+
+Which recommendation is most robust across scenarios?"
+
+Expected Phase 3 Challenges
+Data Limitations
+
+No Game-by-Game Data: Can't track improvement over season
+No Situational Context: No information about game situations, opponent strength
+Limited Advanced Metrics: Missing shot quality, defensive assignments, etc.
+
+Validation Difficulties
+
+Multiple Correct Answers: Strategic questions often have several valid approaches
+Domain Expertise Required: Need coaching knowledge to validate recommendations
+Subjective Preferences: Different coaching philosophies lead to different decisions
+
+Prompt Engineering Complexity
+
+Extensive Setup Required: Complex questions need detailed metric definitions
+Context Management: Risk of exceeding token limits with comprehensive prompts
+Balancing Specificity: Too specific limits creativity, too vague reduces accuracy.
