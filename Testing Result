@@ -1,0 +1,100 @@
+## nTesting Results by Phase
+Phase 1: Basic Descriptive Questions
+Target Complexity: Simple counting, aggregation, direct lookups
+Expected Accuracy: 90%+
+Actual Accuracy: 100% (8/8 questions correct)
+Question Set 1A: Simple Counting/Aggregation
+QuestionLLM AnswerCorrect AnswerStatusTotal players on roster1717✅Team total goals268268✅Team total assists202202✅Maximum games played1818✅
+Question Set 1B: Basic Player Statistics
+QuestionLLM AnswerCorrect AnswerStatusTop goal scorerMeaghan Tyrrell (52)Meaghan Tyrrell (52)✅Top assisterKate Mashewske (28)Kate Mashewske (28)✅Top point scorerMeaghan Tyrrell (75)Meaghan Tyrrell (75)✅Most shots takenMeaghan Tyrrell (89)Meaghan Tyrrell (89)✅
+Key Observations:
+
+Zero calculation errors observed
+Perfect understanding of lacrosse statistical concepts
+No prompt engineering required
+Consistent performance across all basic question types
+
+Phase 2: Intermediate Analysis Questions
+Target Complexity: Calculated metrics, filtering, conditional analysis
+Expected Accuracy: 70-85%
+Actual Accuracy: 100% (4/4 questions correct)
+Question Set 2A: Calculated Metrics
+QuestionLLM AnswerCorrect AnswerStatusBest goals/game (15+ games)Meaghan Tyrrell (2.89)Meaghan Tyrrell (2.89)✅Best shooting % (20+ shots)Meaghan Tyrrell (58.4%)Meaghan Tyrrell (58.4%)✅Team shooting percentage46.0%46.0%✅Position with most goalsAttackers (144)Attackers (144)✅
+Key Observations:
+
+Perfect application of filtering criteria (minimum games/shots)
+Accurate calculation of derived metrics (ratios, percentages)
+Correct positional group analysis
+Logical reasoning clearly explained in responses
+
+
+Prompt Engineering Analysis
+Effective Strategies Identified
+Level 1: Direct Questions (100% success rate)
+Example: "Who scored the most goals this season?"
+Result: Perfect accuracy, no refinement needed
+Level 2: Structured Questions with Context (100% success rate)
+Example: "Who had the highest goals-per-game average among players with 15+ games?"
+Result: Perfect filtering and calculation, clear reasoning provided
+Prompt Characteristics That Work
+
+Clear Context: Mentioning dataset source improves response quality
+Explicit Criteria: Stating filtering conditions prevents errors
+Specific Metrics: Defining calculation methods ensures accuracy
+Step-by-Step Requests: Asking for reasoning enables validation
+
+Minimal Engineering Required
+Contrary to expectations, even intermediate questions required minimal prompt refinement. Standard structured questions with clear criteria proved sufficient for perfect accuracy.
+
+Performance Analysis
+Calculation Accuracy: Exceptional
+
+Mathematical Operations: 100% accuracy across all arithmetic
+Filtering Logic: Perfect application of conditional criteria
+Data Aggregation: Flawless summation across groups and categories
+Ratio Calculations: Accurate percentage and per-game computations
+
+Domain Understanding: Strong
+
+Lacrosse Knowledge: Appropriate interpretation of sport-specific statistics
+Statistical Concepts: Proper understanding of shooting percentages, efficiency metrics
+Positional Analysis: Correct grouping and comparison of player roles
+
+Reasoning Quality: High
+
+Methodology: Clear explanation of calculation approaches
+Logic Flow: Step-by-step reasoning easy to follow and validate
+Error Detection: No instances of flawed logical reasoning observed
+
+
+Reliability Assessment
+High Confidence Applications
+Based on testing results, LLM shows high reliability for:
+
+Routine Statistical Reporting: Team/player performance summaries
+Performance Rankings: Top performers across various categories
+Comparative Analysis: Position groups, efficiency metrics
+Basic Analytics: Shooting percentages, per-game averages
+
+Validated Accuracy Range
+
+Simple Queries: 100% accuracy expected
+Intermediate Analysis: 100% accuracy demonstrated
+Complex Strategic Questions: [To be tested in Phase 3]
+
+
+Research Implications
+Surprising Findings
+
+Higher Accuracy Than Predicted: Both phases exceeded expected performance
+Minimal Prompt Engineering: Less refinement needed than anticipated
+Robust Statistical Reasoning: Complex calculations handled flawlessly
+Consistent Performance: No accuracy variation across similar question types
+
+Practical Applications
+Results suggest LLMs could reliably support:
+
+Coaching Staff: Automated stat reports and player analysis
+Sports Media: Rapid generation of performance summaries
+Fan Engagement: Interactive statistical Q&A systems
+Player Development: Objective performance tracking
